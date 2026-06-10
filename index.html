@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karachi Medicine Finder</title>
+<style>
+  :root {
+    --green: #0f7b5a;
+    --green-light: #e6f5f0;
+    --green-mid: #1a9e74;
+    --amber: #d97706;
+    --amber-light: #fef3c7;
+    --red: #dc2626;
+    --red-light: #fee2e2;
+    --blue: #1d6fa4;
+    --blue-light: #e0f0fa;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-400: #94a3b8;
+    --gray-600: #475569;
+    --gray-800: #1e293b;
+    --white: #ffffff;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-800);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #0a5e43 0%, #1a9e74 100%);
+    padding: 20px 16px 28px;
+    color: white;
+  }
+  .header-top { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .header-logo {
+    width: 40px; height: 40px; background: rgba(255,255,255,0.2);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;
+  }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 13px; opacity: 0.85; }
+
+  /* SEARCH */
+  .search-wrap { position: relative; }
+  .search-input {
+    width: 100%; padding: 14px 48px 14px 16px;
+    border: none; border-radius: var(--radius);
+    font-size: 16px; background: white;
+    color: var(--gray-800); outline: none;
+    box-shadow: var(--shadow-md);
+  }
+  .search-input::placeholder { color: var(--gray-400); }
+  .search-btn {
+    position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+    width: 36px; height: 36px; background: var(--green);
+    border: none; border-radius: 8px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; color: white; font-size: 17px;
+  }
+
+  /* SUGGESTIONS */
+  .suggestions {
+    background: white; border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md); margin-top: 6px;
+    display: none; z-index: 100; position: relative;
+  }
+  .suggestion-item {
+    padding: 11px 16px; cursor: pointer; font-size: 14px;
+    border-bottom: 1px solid var(--gray-100);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .suggestion-item:last-child { border-bottom: none; }
+  .suggestion-item:hover { background: var(--gray-50); }
+  .sug-pill {
+    font-size: 11px; padding: 2px 7px; border-radius: 20px;
+    background: var(--green-light); color: var(--green); margin-left: auto; white-space: nowrap;
+  }
+
+  /* MAIN */
+  .main { padding: 16px; max-width: 700px; margin: 0 auto; }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center; padding: 48px 24px;
+    color: var(--gray-400);
+  }
+  .empty-state .icon { font-size: 48px; margin-bottom: 12px; }
+  .empty-state p { font-size: 15px; }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--gray-400); margin: 20px 0 10px;
+  }
+
+  /* MEDICINE HERO CARD */
+  .med-hero {
+    background: white; border-radius: var(--radius); padding: 18px;
+    box-shadow: var(--shadow); border-left: 4px solid var(--green);
+  }
+  .med-hero-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .med-name { font-size: 22px; font-weight: 700; color: var(--gray-800); }
+  .med-generic { font-size: 14px; color: var(--gray-600); margin-top: 2px; }
+  .med-price-tag {
+    background: var(--green); color: white;
+    padding: 6px 14px; border-radius: 20px; font-size: 15px; font-weight: 700; white-space: nowrap;
+  }
+  .med-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .tag {
+    font-size: 12px; padding: 4px 10px; border-radius: 20px; font-weight: 500;
+  }
+  .tag-illness { background: var(--blue-light); color: var(--blue); }
+  .tag-type { background: var(--gray-100); color: var(--gray-600); }
+
+  /* ILLNESS CARD */
+  .illness-card {
+    background: var(--blue-light); border-radius: var(--radius);
+    padding: 16px; box-shadow: var(--shadow);
+    border: 1px solid #bfdbf7;
+  }
+  .illness-title { font-size: 14px; font-weight: 600; color: var(--blue); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .illness-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .illness-section-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--gray-400); margin-bottom: 5px; }
+  .illness-list { list-style: none; }
+  .illness-list li { font-size: 13px; color: var(--gray-800); padding: 2px 0; display: flex; align-items: center; gap: 5px; }
+  .illness-list li::before { content: '●'; color: var(--blue); font-size: 7px; }
+  .dosage-box {
+    grid-column: 1 / -1; background: white; border-radius: 8px;
+    padding: 10px 12px; display: flex; gap: 12px; align-items: flex-start;
+    border: 1px solid #bfdbf7;
+  }
+  .dosage-icon { font-size: 20px; }
+  .dosage-text { font-size: 13px; color: var(--gray-800); line-height: 1.5; }
+  .dosage-label { font-size: 11px; font-weight: 600; color: var(--blue); margin-bottom: 2px; }
+  .side-effects {
+    grid-column: 1 / -1; background: var(--amber-light);
+    border-radius: 8px; padding: 10px 12px;
+    border: 1px solid #fcd34d; font-size: 13px; color: #92400e;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .side-effects-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* PRICE TABLE */
+  .price-card {
+    background: white; border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow);
+  }
+  .price-table { width: 100%; border-collapse: collapse; }
+  .price-table th {
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em;
+    color: var(--gray-400); padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--gray-200);
+  }
+  .price-table td { padding: 10px 10px; font-size: 14px; border-bottom: 1px solid var(--gray-100); }
+  .price-table tr:last-child td { border-bottom: none; }
+  .price-table tr.highlighted td { background: var(--green-light); }
+  .brand-name { font-weight: 500; }
+  .generic-badge {
+    font-size: 10px; padding: 2px 6px; border-radius: 10px;
+    background: var(--gray-100); color: var(--gray-600); margin-left: 6px; vertical-align: middle;
+  }
+  .original-badge {
+    font-size: 10px; padding: 2px 6px; border-radius: 10px;
+    background: var(--green-light); color: var(--green); margin-left: 6px; vertical-align: middle;
+  }
+  .price-val { font-weight: 600; color: var(--gray-800); }
+  .price-cheap { color: var(--green); }
+  .savings-row {
+    background: var(--green-light); border-radius: 8px; padding: 10px 14px;
+    margin-top: 12px; font-size: 13px; color: var(--green); display: flex; align-items: center; gap: 6px;
+  }
+
+  /* PHARMACY CARDS */
+  .pharmacy-card {
+    background: white; border-radius: var(--radius); padding: 16px;
+    box-shadow: var(--shadow); display: flex; align-items: flex-start;
+    gap: 14px; border-left: 4px solid var(--gray-200);
+  }
+  .pharmacy-card.available { border-left-color: var(--green); }
+  .pharmacy-card.unavailable { border-left-color: var(--gray-200); opacity: .75; }
+  .pharm-icon {
+    width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+  }
+  .pharm-icon.avail { background: var(--green-light); }
+  .pharm-icon.unavail { background: var(--gray-100); }
+  .pharm-info { flex: 1; }
+  .pharm-name { font-size: 15px; font-weight: 600; }
+  .pharm-area { font-size: 13px; color: var(--gray-600); margin-top: 2px; }
+  .pharm-dist { font-size: 12px; color: var(--gray-400); margin-top: 3px; }
+  .pharm-right { text-align: right; flex-shrink: 0; }
+  .avail-badge {
+    font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px;
+  }
+  .avail-badge.yes { background: var(--green-light); color: var(--green); }
+  .avail-badge.no { background: var(--gray-100); color: var(--gray-400); }
+  .pharm-price { font-size: 14px; font-weight: 700; color: var(--gray-800); margin-top: 6px; }
+
+  /* KARACHI WIDE */
+  .karachi-banner {
+    background: var(--amber-light); border: 1px solid #fcd34d; border-radius: var(--radius);
+    padding: 14px 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .karachi-banner-icon { font-size: 24px; }
+  .karachi-banner-text { font-size: 14px; font-weight: 600; color: #92400e; }
+  .karachi-banner-sub { font-size: 13px; color: #b45309; margin-top: 2px; }
+
+  /* TABS */
+  .tabs { display: flex; gap: 6px; margin: 4px 0 16px; }
+  .tab-btn {
+    flex: 1; padding: 9px 8px; border-radius: var(--radius-sm);
+    border: 1px solid var(--gray-200); background: white;
+    font-size: 13px; font-weight: 500; cursor: pointer; color: var(--gray-600);
+    transition: all .15s;
+  }
+  .tab-btn.active {
+    background: var(--green); color: white; border-color: var(--green);
+  }
+
+  /* FOOTER NOTE */
+  .footer-note {
+    text-align: center; font-size: 12px; color: var(--gray-400);
+    padding: 24px 16px; line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-logo">💊</div>
+    <div>
+      <div class="header-title">Karachi Medicine Finder</div>
+      <div class="header-sub">Find medicines, alternatives & nearby pharmacies</div>
+    </div>
+  </div>
+  <div class="search-wrap">
+    <input class="search-input" id="searchInput" type="text" placeholder="Search medicine (e.g. Panadol, Amoxil, Brufen...)" autocomplete="off" oninput="onSearch(this.value)" onkeydown="if(event.key==='Enter')doSearch()">
+    <button class="search-btn" onclick="doSearch()">🔍</button>
+  </div>
+  <div class="suggestions" id="suggestions"></div>
+</div>
+
+<div style="background:#fef9c3;border-bottom:1px solid #fde047;padding:10px 16px;text-align:center;font-size:13px;color:#713f12">
+  📢 <strong>For learning purposes only.</strong> Prices and pharmacy data are dummy/sample. Always consult a doctor.
+</div>
+
+<div class="main" id="main">
+  <div class="empty-state">
+    <div class="icon">🔍</div>
+    <p>Search any medicine to see alternatives,<br>prices, uses & nearby pharmacies in Karachi</p>
+  </div>
+</div>
+
+<script>
+const DB = [
+  {
+    id:1, name:"Panadol", generic:"Paracetamol", type:"Tablet", strength:"500mg",
+    price:85, category:"Analgesic / Antipyretic",
+    illnesses:["Fever","Headache","Body pain","Toothache","Cold & flu","Post-vaccination fever"],
+    dosage:"Adults: 1–2 tablets every 4–6 hours. Max 8 tablets/day. Children (6–12 yrs): half tablet.",
+    sideEffects:"Rare at normal doses. Overdose can cause serious liver damage. Do not exceed recommended dose.",
+    alternatives:[
+      {name:"Calpol",generic:true,price:72},{name:"Febrol",generic:true,price:55},
+      {name:"Paracetamol (generic)",generic:true,price:18},{name:"Disprol",generic:true,price:65},
+      {name:"Tylenol",generic:false,price:110}
+    ]
+  },
+  {
+    id:2, name:"Amoxil", generic:"Amoxicillin", type:"Capsule", strength:"500mg",
+    price:180, category:"Antibiotic",
+    illnesses:["Throat infection","Ear infection","Urinary tract infection","Pneumonia","Bronchitis","Skin infections","Dental infections"],
+    dosage:"Adults: 500mg every 8 hours for 5–7 days. Children: as prescribed by doctor. Complete full course.",
+    sideEffects:"May cause nausea, diarrhea, skin rash. Stop immediately if allergic reaction occurs. Requires prescription.",
+    alternatives:[
+      {name:"Amoxicillin (generic)",generic:true,price:80},{name:"Moxilen",generic:true,price:95},
+      {name:"Ospamox",generic:false,price:210},{name:"Trimox",generic:true,price:88}
+    ]
+  },
+  {
+    id:3, name:"Brufen", generic:"Ibuprofen", type:"Tablet", strength:"400mg",
+    price:95, category:"NSAID / Anti-inflammatory",
+    illnesses:["Pain relief","Fever","Inflammation","Arthritis","Menstrual cramps","Dental pain","Sports injuries","Migraine"],
+    dosage:"Adults: 400mg every 6–8 hours with food. Max 1200mg/day without prescription. Take with meals to protect stomach.",
+    sideEffects:"Can irritate stomach lining. Avoid if you have kidney problems, ulcers, or are pregnant. Do not take on empty stomach.",
+    alternatives:[
+      {name:"Ibuprofen (generic)",generic:true,price:35},{name:"Nurofen",generic:false,price:130},
+      {name:"Advil",generic:false,price:155},{name:"Morfen",generic:true,price:42}
+    ]
+  },
+  {
+    id:4, name:"Flagyl", generic:"Metronidazole", type:"Tablet", strength:"400mg",
+    price:65, category:"Antibiotic / Antiprotozoal",
+    illnesses:["Stomach infection","Amoeba (amoebic dysentery)","Giardia","Dental abscess","Bacterial vaginosis","Pelvic infections","Food poisoning"],
+    dosage:"Adults: 400mg three times daily for 5–7 days. Take with or after food. Avoid alcohol completely during treatment.",
+    sideEffects:"Causes metallic taste in mouth. Nausea, headache common. Absolutely no alcohol during treatment — can cause severe reaction.",
+    alternatives:[
+      {name:"Metronidazole (generic)",generic:true,price:22},{name:"Metrogyl",generic:true,price:55},
+      {name:"Fasigyn",generic:false,price:98},{name:"Trikacide",generic:true,price:30}
+    ]
+  },
+  {
+    id:5, name:"Augmentin", generic:"Amoxicillin + Clavulanate", type:"Tablet", strength:"625mg",
+    price:420, category:"Antibiotic (broad spectrum)",
+    illnesses:["Severe chest infection","Sinusitis","Skin & soft tissue infection","UTI resistant strains","Diabetic foot","Post-surgical infections"],
+    dosage:"Adults: 1 tablet every 12 hours for 7–14 days with meals. Do not crush tablets. Complete full course.",
+    sideEffects:"Diarrhea, stomach upset common. May cause liver enzyme changes with long use. Requires prescription.",
+    alternatives:[
+      {name:"Clavam",generic:true,price:280},{name:"Amoclan",generic:true,price:310},
+      {name:"Clavulin",generic:false,price:390},{name:"Co-Amoxiclav (generic)",generic:true,price:195}
+    ]
+  },
+  {
+    id:6, name:"Risek", generic:"Omeprazole", type:"Capsule", strength:"20mg",
+    price:145, category:"Proton Pump Inhibitor",
+    illnesses:["Acidity & heartburn","GERD (acid reflux)","Stomach ulcer","Duodenal ulcer","Gastritis","H. pylori infection","Bloating & indigestion"],
+    dosage:"Adults: 1 capsule daily before breakfast. For ulcers: 20–40mg once daily for 4–8 weeks. Take on empty stomach.",
+    sideEffects:"Headache, nausea, diarrhea possible. Long-term use may reduce magnesium levels. Not recommended for extended use without doctor advice.",
+    alternatives:[
+      {name:"Omeprazole (generic)",generic:true,price:45},{name:"Losec",generic:false,price:185},
+      {name:"Prilosec",generic:false,price:220},{name:"Omeprax",generic:true,price:60}
+    ]
+  },
+  {
+    id:7, name:"Cipro", generic:"Ciprofloxacin", type:"Tablet", strength:"500mg",
+    price:210, category:"Antibiotic (Fluoroquinolone)",
+    illnesses:["Urinary tract infection","Typhoid fever","Traveler's diarrhea","Chest infection","Bone & joint infection","Anthrax exposure","Prostate infection"],
+    dosage:"Adults: 500mg twice daily for 7–14 days depending on infection. Drink plenty of water. Avoid antacids within 2 hours.",
+    sideEffects:"Tendon damage risk (especially in elderly). May cause dizziness, nausea. Avoid excessive sun exposure. Requires prescription.",
+    alternatives:[
+      {name:"Ciprofloxacin (generic)",generic:true,price:88},{name:"Ciproxin",generic:false,price:245},
+      {name:"Ciplox",generic:true,price:120},{name:"Quintor",generic:true,price:95}
+    ]
+  },
+  {
+    id:8, name:"Zithromax", generic:"Azithromycin", type:"Tablet", strength:"500mg",
+    price:280, category:"Antibiotic (Macrolide)",
+    illnesses:["Chest infection","Community pneumonia","Throat infection (strep)","Skin infections","Chlamydia","Typhoid (mild)","Sinusitis"],
+    dosage:"Adults: 500mg once daily for 3–5 days (Z-pack). Single dose for some infections. Take 1 hour before or 2 hours after meals.",
+    sideEffects:"Stomach upset, diarrhea common. May affect heart rhythm in rare cases. Do not take with antacids.",
+    alternatives:[
+      {name:"Azithromycin (generic)",generic:true,price:110},{name:"Azee",generic:true,price:145},
+      {name:"Azimax",generic:true,price:130},{name:"Sumamed",generic:false,price:320}
+    ]
+  },
+  {
+    id:9, name:"Glucophage", generic:"Metformin", type:"Tablet", strength:"500mg",
+    price:95, category:"Antidiabetic",
+    illnesses:["Type 2 diabetes","Pre-diabetes","PCOS (Polycystic Ovary Syndrome)","Insulin resistance","Metabolic syndrome"],
+    dosage:"Adults: 500mg twice daily with meals, gradually increased. Max 2000mg/day. Always take with food to reduce stomach upset.",
+    sideEffects:"Nausea, diarrhea common at start (usually improves). Rare but serious: lactic acidosis. Hold before contrast dye procedures.",
+    alternatives:[
+      {name:"Metformin (generic)",generic:true,price:38},{name:"Diaformin",generic:true,price:55},
+      {name:"Formet",generic:true,price:48},{name:"Glumetza",generic:false,price:145}
+    ]
+  },
+  {
+    id:10, name:"Nexium", generic:"Esomeprazole", type:"Tablet", strength:"40mg",
+    price:320, category:"Proton Pump Inhibitor",
+    illnesses:["Severe acid reflux","Erosive esophagitis","GERD","Stomach ulcer","Zollinger-Ellison syndrome","H. pylori (with antibiotics)"],
+    dosage:"Adults: 40mg once daily before meals for 4–8 weeks. Swallow whole — do not crush. Reduce to 20mg for maintenance.",
+    sideEffects:"Headache, nausea, stomach pain, constipation. Long-term: low magnesium, B12 deficiency risk.",
+    alternatives:[
+      {name:"Esomeprazole (generic)",generic:true,price:85},{name:"Nexum",generic:true,price:110},
+      {name:"Emozul",generic:true,price:95},{name:"Inexium",generic:false,price:290}
+    ]
+  },
+  {
+    id:11, name:"Ventolin", generic:"Salbutamol", type:"Inhaler", strength:"100mcg",
+    price:380, category:"Bronchodilator",
+    illnesses:["Asthma (acute attack)","COPD","Exercise-induced bronchospasm","Wheezing","Chronic bronchitis","Breathlessness"],
+    dosage:"Adults: 1–2 puffs every 4–6 hours as needed. For exercise: 2 puffs 15–30 min before activity. Max 8 puffs/day.",
+    sideEffects:"Tremor, rapid heartbeat, headache are common. High doses can cause low potassium. Overuse can worsen asthma long-term.",
+    alternatives:[
+      {name:"Salbutamol (generic)",generic:true,price:180},{name:"Asthalin",generic:true,price:220},
+      {name:"Proventil",generic:false,price:450},{name:"Sultanol",generic:true,price:195}
+    ]
+  },
+  {
+    id:12, name:"Crestor", generic:"Rosuvastatin", type:"Tablet", strength:"10mg",
+    price:480, category:"Statin / Cholesterol",
+    illnesses:["High cholesterol","High LDL","Cardiovascular disease prevention","Atherosclerosis","High triglycerides","Post heart attack care"],
+    dosage:"Adults: 5–20mg once daily at any time. Usually taken long-term. Regular blood tests needed to monitor liver and muscle.",
+    sideEffects:"Muscle pain or weakness (report immediately). Headache, stomach upset. Rare: serious muscle breakdown (rhabdomyolysis).",
+    alternatives:[
+      {name:"Rosuvastatin (generic)",generic:true,price:145},{name:"Rosuvas",generic:true,price:175},
+      {name:"Atorvastatin (generic)",generic:true,price:95},{name:"Lipitor",generic:false,price:520}
+    ]
+  },
+  {
+    id:13, name:"Arinac", generic:"Pseudoephedrine + Ibuprofen", type:"Tablet", strength:"Combo",
+    price:120, category:"Cold & Flu Relief",
+    illnesses:["Common cold","Flu symptoms","Blocked nose (congestion)","Sinus pressure","Cold with body ache","Post-nasal drip"],
+    dosage:"Adults: 1 tablet every 6 hours. Do not exceed 4 tablets in 24 hours. Avoid at bedtime — can cause wakefulness.",
+    sideEffects:"Increased blood pressure, rapid heartbeat, insomnia. Not for hypertension patients or those under 12 years.",
+    alternatives:[
+      {name:"Actifed",generic:false,price:145},{name:"Cosylan",generic:true,price:88},
+      {name:"Decongestant combo (generic)",generic:true,price:55},{name:"Sinutab",generic:false,price:135}
+    ]
+  },
+  {
+    id:14, name:"ORS Sachets", generic:"Oral Rehydration Salts", type:"Sachet", strength:"1 sachet / 1L",
+    price:20, category:"Rehydration",
+    illnesses:["Diarrhea","Dehydration","Vomiting","Heat exhaustion","Cholera (mild)","Gastroenteritis","Food poisoning"],
+    dosage:"Dissolve 1 sachet in 1 litre of clean water. Sip slowly. Adults: 2–4 sachets/day. Children: as per body weight.",
+    sideEffects:"Generally very safe. Do not use with sugary drinks. Ensure clean water for preparation.",
+    alternatives:[
+      {name:"Electroral",generic:false,price:25},{name:"Dioralyte",generic:false,price:35},
+      {name:"Pedialyte",generic:false,price:180},{name:"Homemade ORS (sugar+salt+water)",generic:true,price:0}
+    ]
+  },
+  {
+    id:15, name:"Clobetasol Cream", generic:"Clobetasol Propionate", type:"Cream", strength:"0.05%",
+    price:185, category:"Topical Corticosteroid",
+    illnesses:["Eczema","Psoriasis","Severe skin rash","Contact dermatitis","Allergic skin reaction","Lichen planus"],
+    dosage:"Apply thin layer to affected area twice daily for max 2 weeks. Do not cover with tight bandage. Wash hands after use.",
+    sideEffects:"Skin thinning with prolonged use. Do not apply to face, groin, or underarms. Do not use on broken skin or infections.",
+    alternatives:[
+      {name:"Betamethasone cream (generic)",generic:true,price:65},{name:"Dermovate",generic:false,price:210},
+      {name:"Temovate",generic:false,price:250},{name:"Clobex",generic:false,price:230}
+    ]
+  },
+  {
+    id:16, name:"Zantac", generic:"Ranitidine", type:"Tablet", strength:"150mg",
+    price:75, category:"H2 Blocker / Antacid",
+    illnesses:["Acidity","Heartburn","Stomach ulcer","GERD","Bloating","Indigestion","Zollinger-Ellison syndrome"],
+    dosage:"Adults: 150mg twice daily or 300mg at bedtime. Take before meals for best effect. Can be used short-term without prescription.",
+    sideEffects:"Generally well tolerated. Headache, constipation, diarrhea possible. Rare: liver problems with long use.",
+    alternatives:[
+      {name:"Ranitidine (generic)",generic:true,price:22},{name:"Histac",generic:true,price:38},
+      {name:"Aciloc",generic:true,price:30},{name:"Rantec",generic:true,price:28}
+    ]
+  },
+  {
+    id:17, name:"Tums / Gaviscon", generic:"Calcium Carbonate / Alginate", type:"Tablet/Liquid", strength:"Antacid",
+    price:110, category:"Antacid",
+    illnesses:["Heartburn","Acidity","Indigestion","Belching","Stomach discomfort after meals","Pregnancy-related acid reflux"],
+    dosage:"Adults: 1–2 tablets or 10–20ml liquid after meals and at bedtime. Chew tablets, do not swallow whole.",
+    sideEffects:"Generally safe. Excess use can cause constipation or diarrhea. Not a substitute for prescription antacids in severe cases.",
+    alternatives:[
+      {name:"Mylanta",generic:false,price:95},{name:"Maalox",generic:false,price:130},
+      {name:"Antacid (generic)",generic:true,price:35},{name:"Eno sachets",generic:false,price:40}
+    ]
+  },
+  {
+    id:18, name:"Claritin", generic:"Loratadine", type:"Tablet", strength:"10mg",
+    price:155, category:"Antihistamine",
+    illnesses:["Allergic rhinitis (hay fever)","Skin allergy (hives/urticaria)","Itching","Dust allergy","Pet allergy","Food allergy symptoms","Insect bite reaction"],
+    dosage:"Adults & children >12 yrs: 10mg once daily. Non-drowsy formula — safe to take in the morning. Not recommended under 2 years.",
+    sideEffects:"Rarely causes drowsiness (unlike older antihistamines). Headache, dry mouth possible. Safe for most adults.",
+    alternatives:[
+      {name:"Loratadine (generic)",generic:true,price:35},{name:"Alavert",generic:false,price:180},
+      {name:"Cetirizine (generic)",generic:true,price:28},{name:"Zyrtec",generic:false,price:210}
+    ]
+  },
+  {
+    id:19, name:"Norflox", generic:"Norfloxacin", type:"Tablet", strength:"400mg",
+    price:130, category:"Antibiotic (Urinary)",
+    illnesses:["Urinary tract infection (UTI)","Bladder infection (cystitis)","Prostate infection","Gonorrhea","Traveler's diarrhea"],
+    dosage:"Adults: 400mg twice daily for 7–10 days (UTI). Take on empty stomach with a full glass of water. Complete full course.",
+    sideEffects:"Nausea, headache, dizziness. Avoid dairy and antacids near dose time. May increase sun sensitivity.",
+    alternatives:[
+      {name:"Norfloxacin (generic)",generic:true,price:50},{name:"Urinorm",generic:true,price:70},
+      {name:"Noroxin",generic:false,price:165},{name:"Quinabic",generic:true,price:60}
+    ]
+  },
+  {
+    id:20, name:"Disprin", generic:"Aspirin", type:"Tablet", strength:"300mg",
+    price:40, category:"Analgesic / Antiplatelet",
+    illnesses:["Headache","Mild pain","Fever (adults only)","Blood clot prevention","Heart attack prevention","Stroke prevention","Rheumatic fever"],
+    dosage:"Pain/fever: 1–2 tablets every 4–6 hours (dissolve in water). Heart protection: 75mg (low-dose) once daily with meals.",
+    sideEffects:"Can irritate stomach and cause bleeding. Never give to children under 16 (Reye's syndrome risk). Avoid if you have ulcers.",
+    alternatives:[
+      {name:"Aspirin (generic)",generic:true,price:12},{name:"Ecotrin",generic:false,price:85},
+      {name:"Cardiprin (75mg)",generic:true,price:55},{name:"Bufferin",generic:false,price:65}
+    ]
+  }
+];
+
+const PHARMACIES = [
+  {name:"Al-Shifa Pharmacy",area:"Saddar",dist:"0.8 km",lat:24.860,lng:67.010,phone:"021-35650001"},
+  {name:"Shaheen Medical Store",area:"Gulshan-e-Iqbal Block 7",dist:"1.2 km",lat:24.920,lng:67.093,phone:"021-34810044"},
+  {name:"Fazal Din & Sons",area:"Defence Phase 5",dist:"2.1 km",lat:24.810,lng:67.067,phone:"021-35840022"},
+  {name:"Medicare Pharmacy",area:"North Nazimabad",dist:"2.8 km",lat:24.948,lng:67.042,phone:"021-36611109"},
+  {name:"City Pharmacy",area:"Clifton Block 4",dist:"3.5 km",lat:24.831,lng:67.028,phone:"021-35830055"},
+  {name:"Karachi Pharmacy",area:"PECHS Block 2",dist:"4.1 km",lat:24.879,lng:67.060,phone:"021-34558877"},
+  {name:"National Medical Store",area:"Liaquatabad",dist:"5.3 km",lat:24.910,lng:67.050,phone:"021-36673300"},
+  {name:"Sana Medical",area:"Korangi",dist:"7.2 km",lat:24.836,lng:67.116,phone:"021-35103388"},
+  {name:"Punjab Pharmacy",area:"Orangi Town",dist:"8.5 km",lat:24.963,lng:66.994,phone:"021-36561122"},
+  {name:"Bismillah Pharmacy",area:"Malir",dist:"9.0 km",lat:24.864,lng:67.178,phone:"021-34500077"}
+];
+
+function getPharmacyAvailability(med) {
+  return PHARMACIES.map((p,i) => {
+    const seed = (med.id * 7 + i * 3) % 10;
+    return { ...p, available: seed < 6, price: Math.round(med.price * (0.9 + (seed%3)*0.08)) };
+  });
+}
+
+function onSearch(val) {
+  const sug = document.getElementById('suggestions');
+  const q = val.trim().toLowerCase();
+  if (q.length < 2) { sug.style.display='none'; return; }
+  const matches = DB.filter(m =>
+    m.name.toLowerCase().includes(q) ||
+    m.generic.toLowerCase().includes(q) ||
+    m.illnesses.some(il => il.toLowerCase().includes(q))
+  ).slice(0, 5);
+  if (!matches.length) { sug.style.display='none'; return; }
+  sug.innerHTML = matches.map(m => `
+    <div class="suggestion-item" onclick="selectMed(${m.id})">
+      <span>💊</span>
+      <div><strong>${m.name}</strong> <span style="color:#94a3b8;font-size:13px">${m.generic}</span></div>
+      <span class="sug-pill">${m.category}</span>
+    </div>`).join('');
+  sug.style.display = 'block';
+}
+
+function doSearch() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  if (!q) return;
+  const match = DB.find(m =>
+    m.name.toLowerCase().includes(q) ||
+    m.generic.toLowerCase().includes(q) ||
+    m.illnesses.some(il => il.toLowerCase().includes(q))
+  );
+  if (match) selectMed(match.id);
+  document.getElementById('suggestions').style.display = 'none';
+}
+
+function selectMed(id) {
+  const med = DB.find(m => m.id === id);
+  document.getElementById('searchInput').value = med.name;
+  document.getElementById('suggestions').style.display = 'none';
+  renderResult(med);
+}
+
+function renderResult(med) {
+  const pharmacies = getPharmacyAvailability(med);
+  const nearby = pharmacies.slice(0, 4);
+  const availableNearby = nearby.filter(p => p.available);
+  const karachiWide = pharmacies.slice(4).filter(p => p.available);
+  const cheapestAlt = [...med.alternatives].sort((a,b) => a.price - b.price)[0];
+  const savings = med.price - cheapestAlt.price;
+
+  const main = document.getElementById('main');
+  main.innerHTML = `
+    <div class="section-label">Medicine found</div>
+
+    <!-- HERO -->
+    <div class="med-hero">
+      <div class="med-hero-top">
+        <div>
+          <div class="med-name">${med.name}</div>
+          <div class="med-generic">${med.generic} · ${med.strength} · ${med.type}</div>
+        </div>
+        <div class="med-price-tag">Rs. ${med.price}</div>
+      </div>
+      <div class="med-tags">
+        <span class="tag tag-type">📦 ${med.category}</span>
+        ${med.illnesses.slice(0,3).map(i => `<span class="tag tag-illness">🩺 ${i}</span>`).join('')}
+      </div>
+    </div>
+
+    <!-- ILLNESS INFO -->
+    <div class="section-label" style="margin-top:20px">Uses & illness information</div>
+    <div class="illness-card">
+      <div class="illness-title">🩺 What ${med.name} treats</div>
+      <div class="illness-grid">
+        <div>
+          <div class="illness-section-title">Treats these conditions</div>
+          <ul class="illness-list">
+            ${med.illnesses.map(i => `<li>${i}</li>`).join('')}
+          </ul>
+        </div>
+        <div>
+          <div class="illness-section-title">Medicine type</div>
+          <ul class="illness-list">
+            <li>${med.category}</li>
+            <li>${med.type} — ${med.strength}</li>
+            <li>DRAP registered</li>
+          </ul>
+        </div>
+        <div class="dosage-box">
+          <div class="dosage-icon">💊</div>
+          <div class="dosage-text">
+            <div class="dosage-label">Dosage guide</div>
+            ${med.dosage}
+          </div>
+        </div>
+        <div class="side-effects">
+          <div class="side-effects-icon">⚠️</div>
+          <div><strong>Side effects:</strong> ${med.sideEffects}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRICE COMPARISON -->
+    <div class="section-label" style="margin-top:20px">Price comparison — same formula</div>
+    <div class="price-card">
+      <table class="price-table">
+        <thead>
+          <tr>
+            <th>Brand name</th>
+            <th>Formula</th>
+            <th>Price (Rs.)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlighted">
+            <td class="brand-name">${med.name} <span class="original-badge">Searched</span></td>
+            <td style="color:#475569;font-size:13px">${med.generic}</td>
+            <td class="price-val">Rs. ${med.price}</td>
+          </tr>
+          ${med.alternatives.map(a => `
+          <tr>
+            <td class="brand-name">${a.name} ${a.generic ? `<span class="generic-badge">Generic</span>` : ''}</td>
+            <td style="color:#475569;font-size:13px">${med.generic}</td>
+            <td class="price-val ${a.price < med.price ? 'price-cheap' : ''}">Rs. ${a.price}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+      ${savings > 0 ? `
+      <div class="savings-row">
+        💰 You can save <strong>Rs. ${savings}</strong> by choosing <strong>${cheapestAlt.name}</strong> — same active ingredient
+      </div>` : ''}
+    </div>
+
+    <!-- PHARMACY SECTION -->
+    <div class="section-label" style="margin-top:20px">Pharmacy availability</div>
+    <div class="tabs">
+      <button class="tab-btn active" id="tab-nearby" onclick="showTab('nearby')">📍 Near you (${availableNearby.length}/${nearby.length} available)</button>
+      <button class="tab-btn" id="tab-karachi" onclick="showTab('karachi')">🗺 All Karachi (${karachiWide.length} found)</button>
+    </div>
+
+    <div id="tab-nearby-content">
+      ${nearby.map(p => `
+      <div class="pharmacy-card ${p.available ? 'available' : 'unavailable'}" style="margin-bottom:10px">
+        <div class="pharm-icon ${p.available ? 'avail' : 'unavail'}">${p.available ? '✅' : '🏪'}</div>
+        <div class="pharm-info">
+          <div class="pharm-name">${p.name}</div>
+          <div class="pharm-area">📍 ${p.area}, Karachi</div>
+          <div class="pharm-dist">🚗 ${p.dist} away · 📞 ${p.phone}</div>
+        </div>
+        <div class="pharm-right">
+          <div class="avail-badge ${p.available ? 'yes' : 'no'}">${p.available ? 'In stock' : 'Out of stock'}</div>
+          ${p.available ? `<div class="pharm-price">Rs. ${p.price}</div>` : ''}
+        </div>
+      </div>`).join('')}
+    </div>
+
+    <div id="tab-karachi-content" style="display:none">
+      ${!availableNearby.length ? `
+      <div class="karachi-banner" style="margin-bottom:14px">
+        <div class="karachi-banner-icon">🗺</div>
+        <div>
+          <div class="karachi-banner-text">Not found nearby — searching all of Karachi</div>
+          <div class="karachi-banner-sub">Found ${karachiWide.length} pharmacies across Karachi with stock</div>
+        </div>
+      </div>` : ''}
+      ${karachiWide.length ? karachiWide.map(p => `
+      <div class="pharmacy-card available" style="margin-bottom:10px">
+        <div class="pharm-icon avail">✅</div>
+        <div class="pharm-info">
+          <div class="pharm-name">${p.name}</div>
+          <div class="pharm-area">📍 ${p.area}, Karachi</div>
+          <div class="pharm-dist">🚗 ${p.dist} away · 📞 ${p.phone}</div>
+        </div>
+        <div class="pharm-right">
+          <div class="avail-badge yes">In stock</div>
+          <div class="pharm-price">Rs. ${p.price}</div>
+        </div>
+      </div>`).join('') : `<div style="text-align:center;padding:32px;color:#94a3b8">No pharmacies found across Karachi with this medicine in stock.</div>`}
+    </div>
+
+    <div class="footer-note" style="background:#fef9c3;border:1px solid #fde047;border-radius:12px;padding:14px 18px;text-align:left;color:#713f12;margin-top:20px">
+      <div style="font-weight:600;font-size:14px;margin-bottom:6px">📢 Important Notice</div>
+      <div style="font-size:13px;line-height:1.7">
+        This app is developed for <strong>learning and educational purposes only.</strong> The medicine prices and pharmacy availability data shown are <strong>dummy/sample data</strong> and do not reflect real market prices or actual pharmacy stock. Medicine names and general medical information are real, but always <strong>consult a licensed doctor or pharmacist</strong> before taking any medicine. Do not make any medical decisions based on this app.
+      </div>
+    </div>
+  `;
+}
+
+function showTab(tab) {
+  document.getElementById('tab-nearby-content').style.display = tab==='nearby' ? 'block' : 'none';
+  document.getElementById('tab-karachi-content').style.display = tab==='karachi' ? 'block' : 'none';
+  document.getElementById('tab-nearby').classList.toggle('active', tab==='nearby');
+  document.getElementById('tab-karachi').classList.toggle('active', tab==='karachi');
+}
+
+document.getElementById('searchInput').addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('suggestions').style.display = 'none';
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-wrap')) document.getElementById('suggestions').style.display = 'none';
+});
+</script>
+</body>
+</html>
