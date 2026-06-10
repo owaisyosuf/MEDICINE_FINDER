@@ -480,6 +480,655 @@ const DB = [
       {name:"Aspirin (generic)",generic:true,price:12},{name:"Ecotrin",generic:false,price:85},
       {name:"Cardiprin (75mg)",generic:true,price:55},{name:"Bufferin",generic:false,price:65}
     ]
+  },
+  // ── 21-40: ANTIBIOTICS & INFECTIONS ──
+  {
+    id:21, name:"Septran", generic:"Trimethoprim + Sulfamethoxazole", type:"Tablet", strength:"480mg",
+    price:95, category:"Antibiotic (Sulfonamide)",
+    illnesses:["UTI","Chest infection","Ear infection","Typhoid","Diarrhea","Pneumocystis pneumonia"],
+    dosage:"Adults: 2 tablets twice daily for 5–14 days. Drink plenty of water. Complete full course.",
+    sideEffects:"Skin rash, nausea, sun sensitivity. Rare: severe skin reaction (Stevens-Johnson syndrome). Avoid in kidney disease.",
+    alternatives:[{name:"Co-trimoxazole (generic)",generic:true,price:32},{name:"Bactrim",generic:false,price:130},{name:"Cotrim",generic:true,price:45}]
+  },
+  {
+    id:22, name:"Suprax", generic:"Cefixime", type:"Tablet", strength:"400mg",
+    price:320, category:"Antibiotic (Cephalosporin)",
+    illnesses:["Typhoid fever","UTI","Throat infection","Ear infection","Gonorrhea","Chest infection"],
+    dosage:"Adults: 400mg once daily or 200mg twice daily for 7–14 days. Can be taken with or without food.",
+    sideEffects:"Diarrhea, stomach upset, nausea. Rare allergic reaction. Inform doctor if penicillin allergic.",
+    alternatives:[{name:"Cefixime (generic)",generic:true,price:110},{name:"Cefspan",generic:false,price:350},{name:"Fixim",generic:true,price:135}]
+  },
+  {
+    id:23, name:"Rocephin", generic:"Ceftriaxone", type:"Injection", strength:"1g",
+    price:450, category:"Antibiotic (Cephalosporin) Injection",
+    illnesses:["Severe bacterial infection","Meningitis","Typhoid","Pneumonia","Septicemia","Gonorrhea"],
+    dosage:"1g injection once daily IV/IM by healthcare professional. Dose adjusted by doctor based on infection severity.",
+    sideEffects:"Injection site pain, diarrhea, rash. Rare: gallbladder sludge with prolonged use. Only given by medical staff.",
+    alternatives:[{name:"Ceftriaxone (generic)",generic:true,price:180},{name:"Tricef",generic:true,price:220},{name:"Monocef",generic:true,price:200}]
+  },
+  {
+    id:24, name:"Tavanic", generic:"Levofloxacin", type:"Tablet", strength:"500mg",
+    price:380, category:"Antibiotic (Fluoroquinolone)",
+    illnesses:["Chest infection","Pneumonia","Sinusitis","UTI","Skin infection","Tuberculosis (add-on)"],
+    dosage:"Adults: 500mg once daily for 7–14 days. Avoid antacids within 2 hours. Drink plenty of fluids.",
+    sideEffects:"Tendon rupture risk (especially elderly). Dizziness, nausea, insomnia. Avoid excessive sunlight.",
+    alternatives:[{name:"Levofloxacin (generic)",generic:true,price:130},{name:"Levaquin",generic:false,price:420},{name:"Leflox",generic:true,price:155}]
+  },
+  {
+    id:25, name:"Fluconazole", generic:"Fluconazole", type:"Capsule", strength:"150mg",
+    price:85, category:"Antifungal",
+    illnesses:["Vaginal yeast infection","Oral thrush","Fungal skin infection","Cryptococcal meningitis","Nail fungus"],
+    dosage:"Single 150mg dose for vaginal thrush. For systemic infections: 200–400mg daily as prescribed by doctor.",
+    sideEffects:"Nausea, headache, stomach pain. Rare: liver damage with long-term use. Can interact with many medicines.",
+    alternatives:[{name:"Diflucan",generic:false,price:145},{name:"Forcan",generic:true,price:65},{name:"Flucoral",generic:true,price:55}]
+  },
+  {
+    id:26, name:"Malarone", generic:"Atovaquone + Proguanil", type:"Tablet", strength:"250/100mg",
+    price:1200, category:"Antimalarial",
+    illnesses:["Malaria prevention","Malaria treatment (P. falciparum)","Travel malaria prophylaxis"],
+    dosage:"Treatment: 4 tablets once daily for 3 days with food. Prevention: 1 tablet daily starting 1–2 days before travel.",
+    sideEffects:"Nausea, vomiting, headache, abdominal pain. Take with fatty meal to improve absorption.",
+    alternatives:[{name:"Chloroquine (generic)",generic:true,price:45},{name:"Paludrine",generic:false,price:380},{name:"Artesunate (generic)",generic:true,price:280}]
+  },
+  {
+    id:27, name:"Tinidazole", generic:"Tinidazole", type:"Tablet", strength:"500mg",
+    price:75, category:"Antiprotozoal",
+    illnesses:["Amoeba infection","Giardia","Bacterial vaginosis","Trichomoniasis","Stomach parasites","Anaerobic infections"],
+    dosage:"Adults: 2g single dose for giardia. For amoeba: 2g daily for 2–3 days. Take with food. No alcohol during treatment.",
+    sideEffects:"Metallic taste, nausea, dizziness. Absolutely avoid alcohol — causes severe reaction. Similar to Flagyl.",
+    alternatives:[{name:"Fasigyn",generic:false,price:120},{name:"Trimonase",generic:true,price:55},{name:"Metronidazole (generic)",generic:true,price:22}]
+  },
+  {
+    id:28, name:"Erythromycin", generic:"Erythromycin", type:"Tablet", strength:"250mg",
+    price:110, category:"Antibiotic (Macrolide)",
+    illnesses:["Throat infection","Chest infection","Skin infection","Whooping cough","Legionnaire's disease","Penicillin allergy alternative"],
+    dosage:"Adults: 250–500mg every 6 hours for 7–10 days. Take on empty stomach or as directed. Complete full course.",
+    sideEffects:"Stomach upset, nausea, vomiting common. Can affect heart rhythm in high doses. Many drug interactions.",
+    alternatives:[{name:"Erythrocin",generic:false,price:145},{name:"Azithromycin (generic)",generic:true,price:110},{name:"Ery-tab",generic:true,price:90}]
+  },
+  {
+    id:29, name:"Doxycycline", generic:"Doxycycline", type:"Capsule", strength:"100mg",
+    price:120, category:"Antibiotic (Tetracycline)",
+    illnesses:["Chest infection","Malaria prevention","Acne","Chlamydia","Lyme disease","Rocky Mountain spotted fever","Anthrax"],
+    dosage:"Adults: 100mg twice daily for 7–14 days. Take with full glass of water. Do not lie down for 30 min after dose.",
+    sideEffects:"Photosensitivity (sunburn risk), esophageal irritation, nausea. Do not give to children under 8 or pregnant women.",
+    alternatives:[{name:"Vibramycin",generic:false,price:165},{name:"Doxylin",generic:true,price:85},{name:"Periostat",generic:false,price:195}]
+  },
+  {
+    id:30, name:"Clindamycin", generic:"Clindamycin", type:"Capsule", strength:"300mg",
+    price:280, category:"Antibiotic",
+    illnesses:["Skin & soft tissue infection","Dental abscess","Bone infection","Pelvic infection","Acne (topical)","Anaerobic infections"],
+    dosage:"Adults: 150–300mg every 6 hours for 7–10 days. Take with food. Complete full course even if feeling better.",
+    sideEffects:"Diarrhea (risk of C. difficile colitis — stop and seek help if severe diarrhea). Nausea, rash.",
+    alternatives:[{name:"Dalacin C",generic:false,price:340},{name:"Clindamycin (generic)",generic:true,price:155},{name:"Cleocin",generic:false,price:310}]
+  },
+  // ── 31-45: HEART, BP & DIABETES ──
+  {
+    id:31, name:"Concor", generic:"Bisoprolol", type:"Tablet", strength:"5mg",
+    price:210, category:"Beta Blocker / Heart",
+    illnesses:["High blood pressure","Heart failure","Angina","Irregular heartbeat (arrhythmia)","After heart attack"],
+    dosage:"Adults: 5–10mg once daily in the morning. Do not stop suddenly — taper dose under doctor supervision.",
+    sideEffects:"Fatigue, cold hands/feet, dizziness, slow pulse. Do not use in asthma. Never stop abruptly — risk of heart attack.",
+    alternatives:[{name:"Bisoprolol (generic)",generic:true,price:75},{name:"Carvedilol (generic)",generic:true,price:95},{name:"Metoprolol (generic)",generic:true,price:65}]
+  },
+  {
+    id:32, name:"Norvasc", generic:"Amlodipine", type:"Tablet", strength:"5mg",
+    price:185, category:"Calcium Channel Blocker / BP",
+    illnesses:["High blood pressure","Angina (chest pain)","Coronary artery disease","Raynaud's phenomenon"],
+    dosage:"Adults: 5mg once daily. Can increase to 10mg if needed. Take at same time each day. Do not crush.",
+    sideEffects:"Ankle swelling, flushing, headache, dizziness. Usually well tolerated. Swelling often reduces over time.",
+    alternatives:[{name:"Amlodipine (generic)",generic:true,price:55},{name:"Istin",generic:false,price:225},{name:"Amlovas",generic:true,price:70}]
+  },
+  {
+    id:33, name:"Capoten", generic:"Captopril", type:"Tablet", strength:"25mg",
+    price:95, category:"ACE Inhibitor / BP",
+    illnesses:["High blood pressure","Heart failure","After heart attack","Diabetic kidney protection","Left ventricular dysfunction"],
+    dosage:"Adults: 25mg 2–3 times daily. Start low and increase. Take 1 hour before meals for best absorption.",
+    sideEffects:"Dry persistent cough (very common), dizziness, elevated potassium. Avoid in pregnancy — causes fetal harm.",
+    alternatives:[{name:"Captopril (generic)",generic:true,price:30},{name:"Enalapril (generic)",generic:true,price:55},{name:"Lisinopril (generic)",generic:true,price:60}]
+  },
+  {
+    id:34, name:"Lasix", generic:"Furosemide", type:"Tablet", strength:"40mg",
+    price:55, category:"Diuretic (Water Tablet)",
+    illnesses:["Heart failure (fluid retention)","Kidney disease edema","Liver cirrhosis edema","High blood pressure","Pulmonary edema"],
+    dosage:"Adults: 40mg once daily in the morning. Dose adjusted by doctor. Monitor potassium levels during use.",
+    sideEffects:"Frequent urination, low potassium (muscle cramps), dizziness, dehydration. Take in morning to avoid nighttime urination.",
+    alternatives:[{name:"Furosemide (generic)",generic:true,price:18},{name:"Frumil",generic:false,price:80},{name:"Frusemide (generic)",generic:true,price:20}]
+  },
+  {
+    id:35, name:"Aldactone", generic:"Spironolactone", type:"Tablet", strength:"25mg",
+    price:140, category:"Potassium-Sparing Diuretic",
+    illnesses:["Heart failure","Liver cirrhosis","High blood pressure","PCOS (hormonal acne)","Primary hyperaldosteronism","Edema"],
+    dosage:"Adults: 25–200mg daily in divided doses. Take with food. Regular blood tests to monitor potassium needed.",
+    sideEffects:"High potassium risk, breast tenderness (gynecomastia in men), menstrual irregularity in women.",
+    alternatives:[{name:"Spironolactone (generic)",generic:true,price:55},{name:"Spirotone",generic:true,price:75},{name:"Verospiron",generic:false,price:160}]
+  },
+  {
+    id:36, name:"Januvia", generic:"Sitagliptin", type:"Tablet", strength:"100mg",
+    price:850, category:"Antidiabetic (DPP-4 Inhibitor)",
+    illnesses:["Type 2 diabetes","Blood sugar control (add-on therapy)","Post-meal glucose spikes"],
+    dosage:"Adults: 100mg once daily with or without food. Usually combined with metformin or other diabetes medicines.",
+    sideEffects:"Generally well tolerated. Rare: pancreatitis (severe stomach pain — stop immediately), joint pain, UTI.",
+    alternatives:[{name:"Sitagliptin (generic)",generic:true,price:320},{name:"Galvus (Vildagliptin)",generic:false,price:680},{name:"Trajenta (Linagliptin)",generic:false,price:720}]
+  },
+  {
+    id:37, name:"Amaryl", generic:"Glimepiride", type:"Tablet", strength:"2mg",
+    price:175, category:"Antidiabetic (Sulfonylurea)",
+    illnesses:["Type 2 diabetes","Blood sugar lowering","Insulin resistance"],
+    dosage:"Adults: 1–4mg once daily with breakfast. Start with lowest dose. Monitor blood sugar regularly.",
+    sideEffects:"Low blood sugar (hypoglycemia) — eat regular meals. Weight gain possible. Dizziness, headache.",
+    alternatives:[{name:"Glimepiride (generic)",generic:true,price:60},{name:"Glimulin",generic:true,price:75},{name:"Glyburide (generic)",generic:true,price:45}]
+  },
+  {
+    id:38, name:"Nitrostat", generic:"Nitroglycerin", type:"Tablet (sublingual)", strength:"0.5mg",
+    price:220, category:"Anti-Anginal / Nitrate",
+    illnesses:["Acute angina (chest pain)","Heart attack (emergency)","Angina prevention","Coronary artery disease"],
+    dosage:"Place 1 tablet under tongue at onset of chest pain. Repeat every 5 min (max 3 doses). Call emergency if no relief.",
+    sideEffects:"Severe headache, dizziness, low blood pressure, flushing. Do not stand up suddenly. Tolerance develops with continuous use.",
+    alternatives:[{name:"Isordil (Isosorbide)",generic:false,price:185},{name:"Nitroglycerin (generic)",generic:true,price:95},{name:"Imdur",generic:false,price:280}]
+  },
+  {
+    id:39, name:"Acarbose", generic:"Acarbose", type:"Tablet", strength:"50mg",
+    price:195, category:"Antidiabetic (Alpha-Glucosidase Inhibitor)",
+    illnesses:["Type 2 diabetes","Post-meal blood sugar spikes","Glucose tolerance impairment"],
+    dosage:"Adults: 50mg three times daily with first bite of each main meal. Increase gradually to 100mg if needed.",
+    sideEffects:"Gas, bloating, diarrhea (very common at start — usually improves). Does not cause hypoglycemia alone.",
+    alternatives:[{name:"Glucobay",generic:false,price:240},{name:"Acarbose (generic)",generic:true,price:95},{name:"Precose",generic:false,price:280}]
+  },
+  {
+    id:40, name:"Warfarin", generic:"Warfarin", type:"Tablet", strength:"5mg",
+    price:65, category:"Anticoagulant (Blood Thinner)",
+    illnesses:["DVT (deep vein thrombosis)","Pulmonary embolism","Atrial fibrillation","Stroke prevention","Mechanical heart valves","After blood clots"],
+    dosage:"Dose individually adjusted by INR blood test results. Usually 2–10mg daily. Regular blood monitoring essential.",
+    sideEffects:"Bleeding risk — any unusual bleeding is serious. Many food and drug interactions. Avoid green leafy vegetables in excess.",
+    alternatives:[{name:"Warfarin (generic)",generic:true,price:22},{name:"Coumadin",generic:false,price:110},{name:"Marevan",generic:false,price:85}]
+  },
+  // ── 41-55: PAIN, MUSCLES & BONES ──
+  {
+    id:41, name:"Voltaren", generic:"Diclofenac Sodium", type:"Tablet", strength:"50mg",
+    price:110, category:"NSAID / Pain Relief",
+    illnesses:["Arthritis pain","Back pain","Sports injury","Dental pain","Menstrual cramps","Post-operative pain","Gout"],
+    dosage:"Adults: 50mg 2–3 times daily with food. Do not exceed 150mg/day. Take with meals to protect stomach.",
+    sideEffects:"Stomach irritation, ulcers with prolonged use. Cardiovascular risk with long-term use. Avoid in kidney disease.",
+    alternatives:[{name:"Diclofenac (generic)",generic:true,price:35},{name:"Cataflam",generic:false,price:155},{name:"Arthrotec",generic:false,price:220}]
+  },
+  {
+    id:42, name:"Ponstan", generic:"Mefenamic Acid", type:"Capsule", strength:"250mg",
+    price:185, category:"NSAID / Pain Relief",
+    illnesses:["Menstrual pain","Dental pain","Headache","Mild to moderate pain","Post-operative pain","Arthritis"],
+    dosage:"Adults: 500mg initially then 250mg every 6 hours with food. Max 7 days use. Take with or after meals.",
+    sideEffects:"Stomach upset, diarrhea, headache. Avoid in kidney disease or peptic ulcer. Do not use for more than 7 days.",
+    alternatives:[{name:"Mefenamic acid (generic)",generic:true,price:55},{name:"Ponstel",generic:false,price:220},{name:"Meftal",generic:true,price:70}]
+  },
+  {
+    id:43, name:"Myonal", generic:"Eperisone", type:"Tablet", strength:"50mg",
+    price:280, category:"Muscle Relaxant",
+    illnesses:["Muscle spasm","Back pain (muscle tension)","Neck stiffness","Shoulder pain","Post-injury muscle pain","Cervical spondylosis"],
+    dosage:"Adults: 50mg three times daily after meals. Can cause drowsiness. Do not drive until you know its effect on you.",
+    sideEffects:"Drowsiness, dizziness, nausea. Avoid alcohol. May cause weakness in high doses.",
+    alternatives:[{name:"Eperisone (generic)",generic:true,price:110},{name:"Methocarbamol (generic)",generic:true,price:85},{name:"Robaxin",generic:false,price:310}]
+  },
+  {
+    id:44, name:"Fosamax", generic:"Alendronate", type:"Tablet", strength:"70mg",
+    price:420, category:"Bisphosphonate / Bone",
+    illnesses:["Osteoporosis","Bone density loss","Postmenopausal bone loss","Steroid-induced osteoporosis","Paget's disease"],
+    dosage:"70mg once weekly on empty stomach with full glass of water. Stay upright for 30 min after. Do not eat for 30 min.",
+    sideEffects:"Esophageal irritation (serious if not taken correctly), jaw bone problems with long use, muscle/joint pain.",
+    alternatives:[{name:"Alendronate (generic)",generic:true,price:155},{name:"Risedronate (generic)",generic:true,price:185},{name:"Boniva",generic:false,price:650}]
+  },
+  {
+    id:45, name:"Arcoxia", generic:"Etoricoxib", type:"Tablet", strength:"60mg",
+    price:310, category:"COX-2 Inhibitor / Anti-inflammatory",
+    illnesses:["Osteoarthritis","Rheumatoid arthritis","Acute gout","Back pain","Dental pain","Ankylosing spondylitis"],
+    dosage:"Adults: 60–90mg once daily. Use lowest effective dose for shortest time. Take with or without food.",
+    sideEffects:"Less stomach irritation than regular NSAIDs but cardiovascular risk. Avoid in heart disease, stroke history.",
+    alternatives:[{name:"Etoricoxib (generic)",generic:true,price:120},{name:"Celebrex (Celecoxib)",generic:false,price:380},{name:"Celecoxib (generic)",generic:true,price:145}]
+  },
+  // ── 46-60: STOMACH, LIVER & DIGESTION ──
+  {
+    id:46, name:"Motilium", generic:"Domperidone", type:"Tablet", strength:"10mg",
+    price:120, category:"Antiemetic / Prokinetic",
+    illnesses:["Nausea","Vomiting","Bloating","Slow stomach emptying","Gastroparesis","Heartburn","After chemotherapy nausea"],
+    dosage:"Adults: 10mg up to 3 times daily before meals. Max 30mg/day. Do not use for more than 1 week without advice.",
+    sideEffects:"Headache, dry mouth, diarrhea. Rare: irregular heartbeat (use lowest dose). Not for children under 35kg.",
+    alternatives:[{name:"Domperidone (generic)",generic:true,price:38},{name:"Motifast",generic:true,price:55},{name:"Maxolon (Metoclopramide)",generic:false,price:75}]
+  },
+  {
+    id:47, name:"Buscopan", generic:"Hyoscine Butylbromide", type:"Tablet", strength:"10mg",
+    price:135, category:"Antispasmodic",
+    illnesses:["Stomach cramps","IBS (irritable bowel syndrome)","Period pain (cramps)","Gallbladder cramps","Kidney colic","Intestinal spasm"],
+    dosage:"Adults: 10–20mg 3–4 times daily. Can also be given as injection for severe cramps. Take with water.",
+    sideEffects:"Dry mouth, blurred vision, urinary retention in men with prostate problems. Avoid driving if blurred vision.",
+    alternatives:[{name:"Hyoscine (generic)",generic:true,price:45},{name:"Scopinal",generic:true,price:60},{name:"Colpermin (peppermint)",generic:false,price:155}]
+  },
+  {
+    id:48, name:"Dulcolax", generic:"Bisacodyl", type:"Tablet", strength:"5mg",
+    price:95, category:"Laxative",
+    illnesses:["Constipation","Pre-procedure bowel cleansing","Occasional irregular bowel","Post-operative constipation"],
+    dosage:"Adults: 5–10mg at bedtime. Effect in 6–12 hours. Do not use regularly — for occasional constipation only.",
+    sideEffects:"Stomach cramps, diarrhea, electrolyte imbalance with overuse. Do not use long term — causes lazy bowel.",
+    alternatives:[{name:"Bisacodyl (generic)",generic:true,price:28},{name:"Laxoberon (Sodium Picosulfate)",generic:false,price:145},{name:"Lactulose (generic)",generic:true,price:65}]
+  },
+  {
+    id:49, name:"Imodium", generic:"Loperamide", type:"Capsule", strength:"2mg",
+    price:85, category:"Antidiarrheal",
+    illnesses:["Acute diarrhea","Traveler's diarrhea","Chronic diarrhea (IBS)","Diarrhea after bowel surgery"],
+    dosage:"Adults: 4mg initially then 2mg after each loose stool. Max 16mg/day. Stop after 48 hours if no improvement.",
+    sideEffects:"Constipation, stomach bloating, dizziness. Do not use if diarrhea has blood or fever — may be infection.",
+    alternatives:[{name:"Loperamide (generic)",generic:true,price:25},{name:"Lopex",generic:true,price:35},{name:"Diareze",generic:true,price:40}]
+  },
+  {
+    id:50, name:"Essentiale", generic:"Phosphatidylcholine (Essential Phospholipids)", type:"Capsule", strength:"300mg",
+    price:420, category:"Liver Protectant",
+    illnesses:["Liver disease","Fatty liver","Hepatitis (supportive)","Alcohol-related liver damage","Drug-induced liver injury","Cirrhosis (supportive)"],
+    dosage:"Adults: 2 capsules three times daily with meals. Long-term use usually 3–6 months. Take with food.",
+    sideEffects:"Generally very safe. Mild stomach upset possible. Not a substitute for treating underlying liver disease.",
+    alternatives:[{name:"Phospholipid capsules (generic)",generic:true,price:145},{name:"Hepamerz",generic:false,price:380},{name:"Livolin forte",generic:true,price:255}]
+  },
+  {
+    id:51, name:"Liv 52", generic:"Herbal Liver Tonic (Himsra + Kasani)", type:"Tablet", strength:"Herbal",
+    price:180, category:"Herbal Liver Support",
+    illnesses:["Liver weakness","Loss of appetite","Fatty liver (mild)","Jaundice (supportive)","Alcoholic liver disease","Digestive weakness"],
+    dosage:"Adults: 2 tablets twice daily before meals. Children: 1 tablet twice daily. Long-term use is safe.",
+    sideEffects:"Generally very safe herbal product. Rare mild stomach discomfort. Not for acute liver failure.",
+    alternatives:[{name:"Silymarin (Milk Thistle)",generic:true,price:220},{name:"Hepagard",generic:true,price:155},{name:"Hepaton",generic:true,price:140}]
+  },
+  {
+    id:52, name:"Gaviscon", generic:"Sodium Alginate + Sodium Bicarbonate", type:"Liquid", strength:"10ml/dose",
+    price:220, category:"Antacid / Reflux Relief",
+    illnesses:["Heartburn","Acid reflux (GERD)","Indigestion","Pregnancy heartburn","Post-meal acidity","Hiatal hernia symptoms"],
+    dosage:"Adults: 10–20ml after meals and at bedtime. Shake well before use. Do not exceed 4 doses in 24 hours.",
+    sideEffects:"Very safe. May cause mild constipation or diarrhea. High sodium content — caution in sodium-restricted diets.",
+    alternatives:[{name:"Alginate liquid (generic)",generic:true,price:85},{name:"Pepcid (Famotidine)",generic:false,price:195},{name:"Ranitidine (generic)",generic:true,price:22}]
+  },
+  // ── 53-65: RESPIRATORY & ALLERGY ──
+  {
+    id:53, name:"Flixonase", generic:"Fluticasone Nasal Spray", type:"Nasal Spray", strength:"50mcg",
+    price:420, category:"Nasal Corticosteroid",
+    illnesses:["Allergic rhinitis","Hay fever","Perennial rhinitis","Nasal polyps","Dust allergy","Blocked nose (chronic)"],
+    dosage:"Adults: 2 sprays in each nostril once daily. Children: 1 spray each nostril. Use regularly for best effect.",
+    sideEffects:"Mild nasal irritation, nosebleed, headache. Very safe for long-term use. Systemic effects minimal.",
+    alternatives:[{name:"Fluticasone spray (generic)",generic:true,price:165},{name:"Nasonex (Mometasone)",generic:false,price:480},{name:"Beconase (Beclomethasone)",generic:false,price:310}]
+  },
+  {
+    id:54, name:"Atrovent", generic:"Ipratropium Bromide", type:"Inhaler", strength:"20mcg",
+    price:480, category:"Bronchodilator (Anticholinergic)",
+    illnesses:["COPD","Chronic bronchitis","Emphysema","Asthma (add-on)","Acute bronchospasm"],
+    dosage:"Adults: 2 puffs 3–4 times daily. Can be combined with Ventolin for better effect in COPD.",
+    sideEffects:"Dry mouth, blurred vision, urinary retention (in men with prostate problems). Avoid eye contact with spray.",
+    alternatives:[{name:"Ipratropium (generic)",generic:true,price:195},{name:"Combivent (with Salbutamol)",generic:false,price:620},{name:"Spiriva (Tiotropium)",generic:false,price:1200}]
+  },
+  {
+    id:55, name:"Singulair", generic:"Montelukast", type:"Tablet", strength:"10mg",
+    price:380, category:"Leukotriene Receptor Antagonist",
+    illnesses:["Asthma prevention","Allergic rhinitis","Exercise-induced asthma","Seasonal allergies","Chronic urticaria"],
+    dosage:"Adults: 10mg once daily in the evening. Children (6–14 yrs): 5mg chewable tablet daily.",
+    sideEffects:"Headache, stomach upset. Rare but serious: mood changes, depression, suicidal thoughts — report immediately.",
+    alternatives:[{name:"Montelukast (generic)",generic:true,price:130},{name:"Lukasm",generic:true,price:155},{name:"Zafirlukast (generic)",generic:true,price:145}]
+  },
+  {
+    id:56, name:"Phenergan", generic:"Promethazine", type:"Tablet", strength:"25mg",
+    price:75, category:"Antihistamine / Sedative",
+    illnesses:["Allergy","Hay fever","Hives (urticaria)","Travel sickness (nausea)","Insomnia (short-term)","Cough (nighttime)"],
+    dosage:"Adults: 25mg at night or 10–25mg 2–3 times daily. Causes strong drowsiness. Do not drive after taking.",
+    sideEffects:"Strong sedation, dry mouth, blurred vision, constipation. Do not give to children under 2 years.",
+    alternatives:[{name:"Promethazine (generic)",generic:true,price:22},{name:"Avomine",generic:false,price:95},{name:"Diphenhydramine (generic)",generic:true,price:18}]
+  },
+  {
+    id:57, name:"Mucinex", generic:"Guaifenesin", type:"Tablet", strength:"600mg",
+    price:185, category:"Expectorant (Chest Congestion)",
+    illnesses:["Chest congestion","Productive cough","Bronchitis","Mucus buildup","Cold with phlegm","Sinusitis"],
+    dosage:"Adults: 600–1200mg every 12 hours with full glass of water. Drink plenty of fluids throughout the day.",
+    sideEffects:"Nausea, stomach upset, dizziness. Drink extra water to help thin mucus. Generally safe.",
+    alternatives:[{name:"Guaifenesin (generic)",generic:true,price:55},{name:"Robitussin",generic:false,price:145},{name:"Bisolvon (Bromhexine)",generic:false,price:120}]
+  },
+  {
+    id:58, name:"Theo-Dur", generic:"Theophylline", type:"Tablet", strength:"200mg",
+    price:95, category:"Bronchodilator (Xanthine)",
+    illnesses:["Asthma","COPD","Chronic bronchitis","Emphysema","Breathing difficulty at night"],
+    dosage:"Adults: 200–300mg twice daily. Blood level monitoring required. Many food and drug interactions — take consistently.",
+    sideEffects:"Nausea, vomiting, headache, rapid heartbeat, insomnia. Narrow therapeutic window — overdose risk. Regular blood tests needed.",
+    alternatives:[{name:"Theophylline (generic)",generic:true,price:32},{name:"Aminophylline (generic)",generic:true,price:28},{name:"Uniphyl",generic:false,price:145}]
+  },
+  // ── 59-70: MENTAL HEALTH, SLEEP & NERVES ──
+  {
+    id:59, name:"Lexotanil", generic:"Bromazepam", type:"Tablet", strength:"3mg",
+    price:95, category:"Benzodiazepine / Anxiolytic",
+    illnesses:["Anxiety disorder","Panic attacks","Situational anxiety","Muscle tension from anxiety","Pre-procedure anxiety"],
+    dosage:"Adults: 1.5–3mg 2–3 times daily. Short-term use only (max 4 weeks). Prescription required. Taper to stop.",
+    sideEffects:"Drowsiness, dependence risk, memory problems, coordination issues. Never stop suddenly — seizure risk. Avoid alcohol.",
+    alternatives:[{name:"Bromazepam (generic)",generic:true,price:35},{name:"Diazepam (generic)",generic:true,price:18},{name:"Alprazolam (generic)",generic:true,price:28}]
+  },
+  {
+    id:60, name:"Prozac", generic:"Fluoxetine", type:"Capsule", strength:"20mg",
+    price:280, category:"Antidepressant (SSRI)",
+    illnesses:["Depression","OCD (obsessive compulsive disorder)","Panic disorder","Bulimia nervosa","PTSD","Social anxiety"],
+    dosage:"Adults: 20mg once daily in the morning. May take 4–6 weeks for full effect. Do not stop abruptly — taper slowly.",
+    sideEffects:"Nausea (usually improves), insomnia, headache, sexual dysfunction. Rare: increased suicidal thoughts at start of treatment.",
+    alternatives:[{name:"Fluoxetine (generic)",generic:true,price:95},{name:"Sertraline (generic)",generic:true,price:110},{name:"Zoloft",generic:false,price:320}]
+  },
+  {
+    id:61, name:"Stilnox", generic:"Zolpidem", type:"Tablet", strength:"10mg",
+    price:380, category:"Sedative / Sleep Aid",
+    illnesses:["Insomnia (short-term)","Difficulty falling asleep","Frequent nighttime waking","Jet lag"],
+    dosage:"Adults: 10mg immediately before bed (5mg for elderly). Use for max 2–4 weeks. Only take when you have 7–8 hours for sleep.",
+    sideEffects:"Drowsiness next morning, sleepwalking (rare), memory problems. Dependence risk. Never mix with alcohol.",
+    alternatives:[{name:"Zolpidem (generic)",generic:true,price:130},{name:"Melatonin (generic)",generic:true,price:180},{name:"Zopiclone (generic)",generic:true,price:155}]
+  },
+  {
+    id:62, name:"Tegretol", generic:"Carbamazepine", type:"Tablet", strength:"200mg",
+    price:185, category:"Anticonvulsant / Mood Stabilizer",
+    illnesses:["Epilepsy (seizures)","Trigeminal neuralgia (facial pain)","Bipolar disorder","Nerve pain","Alcohol withdrawal seizures"],
+    dosage:"Adults: Start 100–200mg twice daily, gradually increase. Blood level monitoring required. Never stop suddenly.",
+    sideEffects:"Dizziness, drowsiness, blurred vision, nausea. Rare: severe skin reactions (Stevens-Johnson), low sodium. Regular blood tests.",
+    alternatives:[{name:"Carbamazepine (generic)",generic:true,price:65},{name:"Valproate (generic)",generic:true,price:85},{name:"Lamotrigine (generic)",generic:true,price:145}]
+  },
+  {
+    id:63, name:"Inderal", generic:"Propranolol", type:"Tablet", strength:"40mg",
+    price:75, category:"Beta Blocker / Anxiety / Heart",
+    illnesses:["High blood pressure","Angina","Migraine prevention","Performance anxiety","Hyperthyroidism symptoms","Tremors","Irregular heartbeat"],
+    dosage:"Adults: 40mg 2–3 times daily. For anxiety: 40mg as needed before event. Do not stop suddenly.",
+    sideEffects:"Fatigue, cold hands, dizziness, depression. Do not use in asthma. Do not stop abruptly.",
+    alternatives:[{name:"Propranolol (generic)",generic:true,price:25},{name:"Atenolol (generic)",generic:true,price:30},{name:"Metoprolol (generic)",generic:true,price:65}]
+  },
+  // ── 64-75: VITAMINS, SUPPLEMENTS & NUTRITION ──
+  {
+    id:64, name:"Neurobion", generic:"Vitamin B1 + B6 + B12", type:"Tablet", strength:"100/200/200mcg",
+    price:185, category:"Vitamin B Complex",
+    illnesses:["Nerve pain (neuropathy)","Vitamin B deficiency","Tingling/numbness hands & feet","Back pain (nerve related)","Weakness & fatigue","Diabetic neuropathy"],
+    dosage:"Adults: 1 tablet daily or as directed. Injection form for severe deficiency. Safe for long-term use.",
+    sideEffects:"Very safe. High doses of B6 (>200mg/day) can rarely cause nerve damage. Urine turns yellow — normal.",
+    alternatives:[{name:"B-complex (generic)",generic:true,price:45},{name:"Becosules",generic:false,price:145},{name:"Polybion",generic:true,price:95}]
+  },
+  {
+    id:65, name:"Calcium Sandoz", generic:"Calcium Carbonate + Vitamin D3", type:"Tablet", strength:"500mg/200IU",
+    price:280, category:"Calcium Supplement",
+    illnesses:["Calcium deficiency","Osteoporosis prevention","Bone weakness","Pregnancy calcium need","Rickets","Postmenopausal bone loss"],
+    dosage:"Adults: 1–2 tablets daily with meals. Take with food for better absorption. Space from iron supplements by 2 hours.",
+    sideEffects:"Constipation, gas. Excessive calcium causes kidney stones. Do not exceed recommended dose.",
+    alternatives:[{name:"Calcium carbonate (generic)",generic:true,price:55},{name:"Caltrate",generic:false,price:320},{name:"Ostocalcium",generic:true,price:145}]
+  },
+  {
+    id:66, name:"Obimin", generic:"Multivitamin + Iron + Folic Acid", type:"Tablet", strength:"Prenatal",
+    price:380, category:"Prenatal Vitamin",
+    illnesses:["Pregnancy nutrition","Folic acid deficiency","Iron deficiency in pregnancy","Neural tube defect prevention","Breastfeeding nutrition"],
+    dosage:"1 tablet daily throughout pregnancy and while breastfeeding. Take with food to reduce nausea.",
+    sideEffects:"Nausea, constipation (from iron), dark stools (normal with iron). Avoid overdose of Vitamin A.",
+    alternatives:[{name:"Folic acid (generic)",generic:true,price:18},{name:"Pregnacare",generic:false,price:480},{name:"Materna",generic:false,price:420}]
+  },
+  {
+    id:67, name:"Feosol", generic:"Ferrous Sulfate", type:"Tablet", strength:"200mg",
+    price:75, category:"Iron Supplement",
+    illnesses:["Iron deficiency anemia","Fatigue from low iron","Anemia in pregnancy","Blood loss anemia","Heavy period-related anemia"],
+    dosage:"Adults: 200mg once or twice daily on empty stomach (or with Vitamin C). Take 2 hours apart from antacids/dairy.",
+    sideEffects:"Black stools (normal), constipation, nausea, stomach cramps. Take with food if stomach upset is severe.",
+    alternatives:[{name:"Ferrous sulfate (generic)",generic:true,price:22},{name:"Sangobion",generic:false,price:280},{name:"Ferro-gradumet",generic:false,price:145}]
+  },
+  {
+    id:68, name:"Vigamox", generic:"Moxifloxacin Eye Drops", type:"Eye Drops", strength:"0.5%",
+    price:380, category:"Antibiotic Eye Drops",
+    illnesses:["Bacterial conjunctivitis (pink eye)","Eye infection","Post-eye surgery infection prevention","Corneal ulcer"],
+    dosage:"Adults: 1 drop in affected eye 3 times daily for 7 days. Wash hands before use. Do not touch dropper to eye.",
+    sideEffects:"Mild eye irritation, burning, temporary blurred vision. Remove contact lenses before use.",
+    alternatives:[{name:"Moxifloxacin drops (generic)",generic:true,price:145},{name:"Ciprofloxacin eye drops",generic:true,price:85},{name:"Tobrex (Tobramycin)",generic:false,price:280}]
+  },
+  {
+    id:69, name:"Vitamin C (Redoxon)", generic:"Ascorbic Acid", type:"Effervescent Tablet", strength:"1000mg",
+    price:220, category:"Vitamin C Supplement",
+    illnesses:["Vitamin C deficiency","Immune support","Cold & flu prevention","Wound healing","Scurvy","Iron absorption enhancement"],
+    dosage:"Adults: 1 effervescent tablet daily dissolved in water. Can increase to 2g/day for immune support.",
+    sideEffects:"Generally safe. High doses (>2g/day) cause diarrhea, kidney stones risk. Urine turns bright yellow.",
+    alternatives:[{name:"Vitamin C (generic)",generic:true,price:35},{name:"Celin",generic:true,price:55},{name:"Ester-C",generic:false,price:380}]
+  },
+  {
+    id:70, name:"Zinc Sulphate", generic:"Zinc Sulphate", type:"Tablet", strength:"20mg",
+    price:85, category:"Zinc Supplement",
+    illnesses:["Zinc deficiency","Diarrhea (children)","Wound healing","Immune support","Acne","Growth retardation","COVID-19 support"],
+    dosage:"Adults: 20–40mg daily with food. Children: 10–20mg daily. Usually for 2–4 weeks.",
+    sideEffects:"Nausea on empty stomach, metallic taste, stomach cramps. High doses interfere with copper absorption.",
+    alternatives:[{name:"Zinc (generic)",generic:true,price:28},{name:"Zincovit",generic:true,price:110},{name:"Zevit",generic:true,price:95}]
+  },
+  // ── 71-85: EYE, EAR, SKIN & HORMONES ──
+  {
+    id:71, name:"Timoptic", generic:"Timolol Eye Drops", type:"Eye Drops", strength:"0.5%",
+    price:280, category:"Glaucoma Eye Drops",
+    illnesses:["Glaucoma","Raised intraocular pressure","Ocular hypertension"],
+    dosage:"Adults: 1 drop in affected eye(s) twice daily. Use at same times each day. Punctal occlusion reduces systemic absorption.",
+    sideEffects:"Stinging, blurred vision. Can enter bloodstream and cause low heart rate, breathing problems in asthmatics.",
+    alternatives:[{name:"Timolol (generic)",generic:true,price:95},{name:"Xalatan (Latanoprost)",generic:false,price:680},{name:"Betoptic",generic:false,price:310}]
+  },
+  {
+    id:72, name:"Sofradex", generic:"Framycetin + Gramicidin + Dexamethasone", type:"Ear/Eye Drops", strength:"Combo",
+    price:185, category:"Antibiotic + Steroid Drops",
+    illnesses:["Ear infection (otitis externa)","Infected eczema of ear","Eye infection with inflammation","Swimmer's ear"],
+    dosage:"Ear: 2–3 drops 3–4 times daily. Eye: 1–2 drops every 1–2 hours initially. Do not use for more than 7 days.",
+    sideEffects:"Stinging on application. Prolonged use may cause fungal infection or steroid-related problems. Do not use if eardrum is perforated.",
+    alternatives:[{name:"Otosporin",generic:false,price:165},{name:"Candicort",generic:true,price:95},{name:"Gentamicin drops",generic:true,price:65}]
+  },
+  {
+    id:73, name:"Canesten", generic:"Clotrimazole", type:"Cream", strength:"1%",
+    price:145, category:"Antifungal Cream",
+    illnesses:["Athlete's foot","Ringworm","Jock itch","Vaginal thrush","Fungal skin infection","Candida skin infection"],
+    dosage:"Apply thin layer to affected area 2–3 times daily for 2–4 weeks. Continue for 2 weeks after symptoms clear.",
+    sideEffects:"Mild skin irritation, burning, itching at application site. Rare allergic reaction.",
+    alternatives:[{name:"Clotrimazole (generic)",generic:true,price:45},{name:"Miconazole (generic)",generic:true,price:55},{name:"Daktarin",generic:false,price:185}]
+  },
+  {
+    id:74, name:"Hydrocortisone Cream", generic:"Hydrocortisone", type:"Cream", strength:"1%",
+    price:95, category:"Mild Topical Steroid",
+    illnesses:["Mild eczema","Insect bite reaction","Contact dermatitis","Mild allergic skin rash","Itchy skin","Nappy rash (mild)"],
+    dosage:"Apply thin layer to affected area 1–2 times daily. Do not use on face for more than 7 days. Safe for short-term use.",
+    sideEffects:"Skin thinning with prolonged use. Generally very safe for short-term use. Avoid broken skin.",
+    alternatives:[{name:"Hydrocortisone (generic)",generic:true,price:30},{name:"Betnovate (stronger)",generic:false,price:135},{name:"Eumovate",generic:false,price:145}]
+  },
+  {
+    id:75, name:"Eltroxin", generic:"Levothyroxine", type:"Tablet", strength:"50mcg",
+    price:95, category:"Thyroid Hormone",
+    illnesses:["Hypothyroidism (underactive thyroid)","Goitre","After thyroid surgery","Hashimoto's thyroiditis","Myxedema"],
+    dosage:"Adults: 50–200mcg once daily on empty stomach 30 min before breakfast. Dose adjusted by TSH blood test.",
+    sideEffects:"If dose too high: rapid heartbeat, weight loss, anxiety, sweating. Take consistently at same time each day.",
+    alternatives:[{name:"Levothyroxine (generic)",generic:true,price:35},{name:"Synthroid",generic:false,price:145},{name:"Euthyrox",generic:false,price:110}]
+  },
+  {
+    id:76, name:"Dexamethasone", generic:"Dexamethasone", type:"Tablet", strength:"0.5mg",
+    price:55, category:"Corticosteroid (Systemic)",
+    illnesses:["Severe allergy","Asthma attack","Inflammation","Brain swelling","Severe COVID-19","Adrenal insufficiency","Lupus"],
+    dosage:"Dose varies widely by condition (0.5mg–20mg/day). Always prescribed by doctor. Never stop abruptly.",
+    sideEffects:"Weight gain, high blood sugar, mood changes, immune suppression, bone loss with long-term use. Many serious effects.",
+    alternatives:[{name:"Prednisolone (generic)",generic:true,price:35},{name:"Methylprednisolone (generic)",generic:true,price:85},{name:"Medrol",generic:false,price:155}]
+  },
+  {
+    id:77, name:"Primolut N", generic:"Norethisterone", type:"Tablet", strength:"5mg",
+    price:185, category:"Progestogen / Hormone",
+    illnesses:["Heavy periods","Endometriosis","Period delay","Premenstrual syndrome","Dysfunctional uterine bleeding","HRT component"],
+    dosage:"Period delay: 5mg three times daily starting 3 days before expected period. For heavy periods: as prescribed by doctor.",
+    sideEffects:"Nausea, breast tenderness, headache, mood changes, acne. Not a contraceptive at this dose.",
+    alternatives:[{name:"Norethisterone (generic)",generic:true,price:65},{name:"Provera (Medroxyprogesterone)",generic:false,price:220},{name:"Duphaston",generic:false,price:580}]
+  },
+  // ── 78-100: COMMON KARACHI CONDITIONS ──
+  {
+    id:78, name:"Brufen Syrup", generic:"Ibuprofen Syrup", type:"Syrup", strength:"100mg/5ml",
+    price:95, category:"Children's Pain & Fever",
+    illnesses:["Fever in children","Pain in children","Teething pain","Ear pain (children)","Post-vaccination fever"],
+    dosage:"Children: 5–10mg/kg every 6–8 hours. Use measuring spoon. Do not give to infants under 3 months.",
+    sideEffects:"Stomach irritation, give with food or milk. Avoid in dehydrated children. Do not use with Panadol syrup simultaneously.",
+    alternatives:[{name:"Ibuprofen syrup (generic)",generic:true,price:38},{name:"Nurofen for children",generic:false,price:165},{name:"Calpol syrup (Paracetamol)",generic:false,price:55}]
+  },
+  {
+    id:79, name:"Pediacof", generic:"Chlorphenamine + Pholcodine", type:"Syrup", strength:"Combo",
+    price:110, category:"Children's Cough & Cold",
+    illnesses:["Dry cough (children)","Cold symptoms in children","Runny nose","Nighttime cough relief"],
+    dosage:"Children 2–6 yrs: 2.5ml; 6–12 yrs: 5ml; up to 3 times daily. Do not exceed recommended dose.",
+    sideEffects:"Drowsiness (useful at night), dry mouth. Do not give to children under 2 years.",
+    alternatives:[{name:"Benadryl cough syrup",generic:false,price:95},{name:"Triaminic",generic:false,price:145},{name:"Cetirizine syrup",generic:true,price:55}]
+  },
+  {
+    id:80, name:"Scaboma", generic:"Lindane / Permethrin Lotion", type:"Lotion", strength:"1%",
+    price:155, category:"Antiparasitic (Scabies & Lice)",
+    illnesses:["Scabies","Head lice","Body lice","Pubic lice","Skin parasites"],
+    dosage:"Apply to entire body from neck down. Leave for 8–12 hours then wash off. Repeat after 1 week if needed. Treat all contacts.",
+    sideEffects:"Skin irritation, tingling. Avoid eyes and mouth. Do not use on broken skin. Permethrin safer than Lindane.",
+    alternatives:[{name:"Permethrin 5% cream",generic:true,price:185},{name:"Eurax (Crotamiton)",generic:false,price:220},{name:"Ivermectin (oral)",generic:true,price:145}]
+  },
+  {
+    id:81, name:"Otrivin", generic:"Xylometazoline", type:"Nasal Drops", strength:"0.1%",
+    price:145, category:"Nasal Decongestant",
+    illnesses:["Blocked nose","Sinusitis","Common cold nasal congestion","Hay fever congestion","Nasal polyps (temporary)"],
+    dosage:"Adults: 2–3 drops or sprays in each nostril 2–3 times daily. Do not use for more than 7 days — causes rebound congestion.",
+    sideEffects:"Rebound congestion if used >7 days (worsens blocked nose). Stinging, sneezing. Avoid in hypertension.",
+    alternatives:[{name:"Xylometazoline (generic)",generic:true,price:45},{name:"Afrin (Oxymetazoline)",generic:false,price:185},{name:"Iliadin",generic:false,price:155}]
+  },
+  {
+    id:82, name:"Betadine", generic:"Povidone Iodine", type:"Solution", strength:"10%",
+    price:165, category:"Antiseptic",
+    illnesses:["Wound cleaning","Skin disinfection","Pre-surgery skin prep","Minor cuts & abrasions","Infected wounds","Oral gargle (diluted)"],
+    dosage:"Apply directly to wound or dilute 1:10 for gargle. Clean wound 2–3 times daily. Allow to dry before covering.",
+    sideEffects:"Skin staining (brown), irritation with prolonged use. Do not use on large wounds for extended periods. Avoid in thyroid disease.",
+    alternatives:[{name:"Povidone iodine (generic)",generic:true,price:55},{name:"Dettol (Chlorhexidine)",generic:false,price:85},{name:"Savlon",generic:false,price:75}]
+  },
+  {
+    id:83, name:"Rhinocort", generic:"Budesonide Nasal Spray", type:"Nasal Spray", strength:"64mcg",
+    price:380, category:"Nasal Corticosteroid",
+    illnesses:["Allergic rhinitis","Chronic sinusitis","Nasal polyps","Hay fever","Year-round nasal allergy"],
+    dosage:"Adults: 2 sprays each nostril once daily in the morning. Prime before first use. Regular daily use gives best results.",
+    sideEffects:"Nasal irritation, nosebleed (mild), headache. Very safe for long-term use.",
+    alternatives:[{name:"Budesonide spray (generic)",generic:true,price:145},{name:"Flixonase (Fluticasone)",generic:false,price:420},{name:"Nasonex",generic:false,price:480}]
+  },
+  {
+    id:84, name:"Minoxidil", generic:"Minoxidil", type:"Topical Solution", strength:"5%",
+    price:580, category:"Hair Loss Treatment",
+    illnesses:["Male pattern baldness","Female hair thinning","Alopecia areata","Hair regrowth after treatment"],
+    dosage:"Apply 1ml to dry scalp twice daily. Takes 3–6 months to see results. Must be used continuously for sustained effect.",
+    sideEffects:"Scalp irritation, initial shedding (normal at start), unwanted facial hair in women (use 2% for women).",
+    alternatives:[{name:"Minoxidil 2% (generic)",generic:true,price:280},{name:"Rogaine",generic:false,price:850},{name:"Tugain",generic:true,price:420}]
+  },
+  {
+    id:85, name:"Dexorange", generic:"Iron + Folic Acid + Vitamin B12", type:"Syrup", strength:"Combo",
+    price:165, category:"Hematinic (Blood Builder)",
+    illnesses:["Anemia","Iron deficiency","Folic acid deficiency","B12 deficiency","Weakness & fatigue","Nutritional deficiency"],
+    dosage:"Adults: 2 tablespoons (30ml) twice daily before meals. Children: 1 tablespoon twice daily. Shake well.",
+    sideEffects:"Black or dark stools (normal from iron), constipation, nausea. Teeth staining — rinse mouth after.",
+    alternatives:[{name:"Ferrous syrup (generic)",generic:true,price:45},{name:"Sangobion syrup",generic:false,price:220},{name:"Hemofer syrup",generic:true,price:85}]
+  },
+  {
+    id:86, name:"Insulin (Mixtard 30)", generic:"Insulin Human (30/70 mix)", type:"Injection", strength:"100 IU/ml",
+    price:380, category:"Insulin / Antidiabetic",
+    illnesses:["Type 1 diabetes","Type 2 diabetes (insulin-dependent)","Diabetic ketoacidosis","High blood sugar control"],
+    dosage:"Dose individually prescribed by doctor. Inject subcutaneously before meals. Rotate injection sites. Store in fridge.",
+    sideEffects:"Hypoglycemia (low blood sugar) — always carry glucose. Injection site lumps. Weight gain.",
+    alternatives:[{name:"Humulin 30/70",generic:false,price:420},{name:"Novomix 30",generic:false,price:650},{name:"Lantus (Glargine)",generic:false,price:1200}]
+  },
+  {
+    id:87, name:"Allopurinol", generic:"Allopurinol", type:"Tablet", strength:"100mg",
+    price:65, category:"Antigout",
+    illnesses:["Gout","High uric acid (hyperuricemia)","Kidney stones (uric acid)","Gout prevention","Chemotherapy-related uric acid rise"],
+    dosage:"Adults: 100–300mg once daily after meals. Drink plenty of water. Do not start during acute gout attack.",
+    sideEffects:"Skin rash (stop immediately if rash appears — can be serious), nausea, drowsiness. Start with low dose.",
+    alternatives:[{name:"Allopurinol (generic)",generic:true,price:22},{name:"Zyloprim",generic:false,price:95},{name:"Febuxostat (generic)",generic:true,price:145}]
+  },
+  {
+    id:88, name:"Colchicine", generic:"Colchicine", type:"Tablet", strength:"0.5mg",
+    price:145, category:"Antigout (Acute)",
+    illnesses:["Acute gout attack","Gout flare prevention","Familial Mediterranean fever","Pericarditis"],
+    dosage:"Acute gout: 0.5mg 2–3 times daily during flare. Prevention: 0.5mg once or twice daily. Do not exceed prescribed dose.",
+    sideEffects:"Diarrhea, nausea, vomiting (dose-dependent). Rare: muscle weakness, nerve damage with long-term overuse.",
+    alternatives:[{name:"Colchicine (generic)",generic:true,price:55},{name:"Colcrys",generic:false,price:280},{name:"Brufen (during flare)",generic:false,price:95}]
+  },
+  {
+    id:89, name:"Omacor", generic:"Omega-3 Fatty Acids", type:"Capsule", strength:"1000mg",
+    price:380, category:"Omega-3 / Lipid Lowering",
+    illnesses:["High triglycerides","Cardiovascular protection","Joint inflammation","Dry eyes","Depression (supportive)","Heart health"],
+    dosage:"Adults: 1–4 capsules daily with meals. For triglycerides: 2–4g/day as prescribed.",
+    sideEffects:"Fishy aftertaste, burping, loose stools. High doses may thin blood. Store in fridge to reduce fishy taste.",
+    alternatives:[{name:"Omega-3 (generic)",generic:true,price:120},{name:"Seven Seas",generic:false,price:280},{name:"MaxEPA",generic:false,price:320}]
+  },
+  {
+    id:90, name:"Telfast", generic:"Fexofenadine", type:"Tablet", strength:"120mg",
+    price:210, category:"Non-Drowsy Antihistamine",
+    illnesses:["Allergic rhinitis","Hives (urticaria)","Skin allergy","Seasonal allergy","Dust & pollen allergy","Itching"],
+    dosage:"Adults: 120mg once daily for rhinitis; 180mg once daily for hives. Non-drowsy — safe to drive.",
+    sideEffects:"Headache, nausea, dizziness. Truly non-sedating — better than Phenergan or older antihistamines for daytime use.",
+    alternatives:[{name:"Fexofenadine (generic)",generic:true,price:75},{name:"Allegra",generic:false,price:250},{name:"Loratadine (generic)",generic:true,price:35}]
+  },
+  {
+    id:91, name:"Durogesic Patch", generic:"Fentanyl Transdermal Patch", type:"Patch", strength:"25mcg/hr",
+    price:1800, category:"Opioid Analgesic (Controlled)",
+    illnesses:["Severe chronic pain","Cancer pain","Post-operative severe pain","Chronic back pain (non-responsive)"],
+    dosage:"Apply to skin every 72 hours (3 days). Prescription and monitoring required. Do not cut patch.",
+    sideEffects:"Drowsiness, nausea, constipation, respiratory depression (serious). High addiction risk. Requires specialist prescription.",
+    alternatives:[{name:"Tramadol (generic)",generic:true,price:85},{name:"Morphine (generic)",generic:true,price:145},{name:"Oxycodone (generic)",generic:true,price:320}]
+  },
+  {
+    id:92, name:"Augmentin Syrup", generic:"Amoxicillin + Clavulanate Syrup", type:"Syrup", strength:"228mg/5ml",
+    price:280, category:"Children's Antibiotic",
+    illnesses:["Ear infection (children)","Chest infection (children)","Throat infection","Skin infection (children)","Sinus infection"],
+    dosage:"Children: dose based on weight (25–45mg/kg/day in 2 doses). Reconstitute with water as per instructions. Refrigerate.",
+    sideEffects:"Diarrhea (common), rash, nausea. Give with food. Complete full course.",
+    alternatives:[{name:"Amoxicillin syrup (generic)",generic:true,price:65},{name:"Cefixime syrup",generic:true,price:145},{name:"Azithromycin syrup",generic:true,price:155}]
+  },
+  {
+    id:93, name:"Zinat", generic:"Cefuroxime", type:"Tablet", strength:"250mg",
+    price:380, category:"Antibiotic (Cephalosporin 2nd Gen)",
+    illnesses:["Chest infection","Sinusitis","UTI","Skin infection","Ear infection","Lyme disease (early)"],
+    dosage:"Adults: 250–500mg twice daily for 5–10 days with food. Children: dose as per weight.",
+    sideEffects:"Diarrhea, nausea, headache. Rare allergic reaction. Inform doctor if penicillin allergic.",
+    alternatives:[{name:"Cefuroxime (generic)",generic:true,price:145},{name:"Ceftin",generic:false,price:420},{name:"Zinnat",generic:false,price:395}]
+  },
+  {
+    id:94, name:"Mobic", generic:"Meloxicam", type:"Tablet", strength:"15mg",
+    price:185, category:"NSAID / Anti-inflammatory",
+    illnesses:["Osteoarthritis","Rheumatoid arthritis","Back pain","Joint pain","Ankylosing spondylitis","Gout (acute)"],
+    dosage:"Adults: 7.5–15mg once daily with food. Use lowest effective dose. Not for long-term without doctor supervision.",
+    sideEffects:"Stomach upset, less GI risk than older NSAIDs. Cardiovascular risk with long-term use. Avoid in kidney disease.",
+    alternatives:[{name:"Meloxicam (generic)",generic:true,price:65},{name:"Meltus",generic:true,price:85},{name:"Diclofenac (generic)",generic:true,price:35}]
+  },
+  {
+    id:95, name:"Sporanox", generic:"Itraconazole", type:"Capsule", strength:"100mg",
+    price:420, category:"Systemic Antifungal",
+    illnesses:["Nail fungus (onychomycosis)","Systemic fungal infection","Ringworm (resistant)","Aspergillosis","Candidiasis (systemic)","Histoplasmosis"],
+    dosage:"Nail fungus: 200mg twice daily for 1 week per month (pulse therapy) for 2–3 months. Take with fatty meal.",
+    sideEffects:"Nausea, liver toxicity (monitor liver function), many drug interactions. Do not take with antacids.",
+    alternatives:[{name:"Itraconazole (generic)",generic:true,price:155},{name:"Fluconazole (generic)",generic:true,price:85},{name:"Terbinafine (generic)",generic:true,price:145}]
+  },
+  {
+    id:96, name:"Desowen", generic:"Desonide Cream", type:"Cream", strength:"0.05%",
+    price:320, category:"Mild Topical Steroid (Face safe)",
+    illnesses:["Facial eczema","Perioral dermatitis","Mild psoriasis","Sensitive skin inflammation","Seborrheic dermatitis","Infant eczema"],
+    dosage:"Apply thin layer to affected area twice daily. Safe for face and skin folds. Do not use for more than 4 weeks.",
+    sideEffects:"Very mild. Skin thinning with prolonged use. Much safer than stronger steroids for face.",
+    alternatives:[{name:"Desonide (generic)",generic:true,price:120},{name:"Hydrocortisone 1% (generic)",generic:true,price:30},{name:"Elidel (Pimecrolimus)",generic:false,price:580}]
+  },
+  {
+    id:97, name:"Zovirax", generic:"Acyclovir", type:"Tablet", strength:"400mg",
+    price:280, category:"Antiviral",
+    illnesses:["Herpes simplex (cold sores)","Genital herpes","Chickenpox","Shingles (Herpes Zoster)","Herpes encephalitis","Viral eye infection"],
+    dosage:"Cold sores: 200mg 5 times daily for 5 days. Genital herpes: 400mg 3 times daily for 5–10 days. Start early.",
+    sideEffects:"Nausea, headache, dizziness. Drink plenty of water. Kidney problems with high doses or dehydration.",
+    alternatives:[{name:"Acyclovir (generic)",generic:true,price:95},{name:"Valacyclovir (generic)",generic:true,price:185},{name:"Famciclovir (generic)",generic:true,price:220}]
+  },
+  {
+    id:98, name:"Tamiflu", generic:"Oseltamivir", type:"Capsule", strength:"75mg",
+    price:1200, category:"Antiviral (Influenza)",
+    illnesses:["Influenza A & B treatment","Flu prevention (post-exposure)","Swine flu (H1N1)","Bird flu (H5N1)"],
+    dosage:"Treatment: 75mg twice daily for 5 days (start within 48 hrs of symptoms). Prevention: 75mg once daily for 10 days.",
+    sideEffects:"Nausea, vomiting (take with food), headache, insomnia. Rare: neuropsychiatric events in children.",
+    alternatives:[{name:"Oseltamivir (generic)",generic:true,price:480},{name:"Zanamivir inhaler",generic:false,price:850},{name:"Baloxavir (Xofluza)",generic:false,price:1800}]
+  },
+  {
+    id:99, name:"Methotrexate", generic:"Methotrexate", type:"Tablet", strength:"2.5mg",
+    price:95, category:"Immunosuppressant / DMARD",
+    illnesses:["Rheumatoid arthritis","Psoriasis","Psoriatic arthritis","Ectopic pregnancy","Some cancers (low dose)","Crohn's disease"],
+    dosage:"RA/Psoriasis: 7.5–25mg once weekly (not daily). Must take folic acid supplement. Regular blood monitoring required.",
+    sideEffects:"Nausea, mouth sores, liver damage, lung toxicity, suppresses immunity. Strict monitoring required. Teratogenic — avoid pregnancy.",
+    alternatives:[{name:"Methotrexate (generic)",generic:true,price:35},{name:"Sulfasalazine (generic)",generic:true,price:85},{name:"Hydroxychloroquine (generic)",generic:true,price:145}]
+  },
+  {
+    id:100, name:"Panadol CF", generic:"Paracetamol + Caffeine + Phenylephrine", type:"Tablet", strength:"Combo",
+    price:110, category:"Cold & Flu / Decongestant",
+    illnesses:["Cold & flu","Sinus headache","Blocked nose with headache","Body ache with cold","Fever with congestion"],
+    dosage:"Adults: 2 tablets every 6 hours. Max 8 tablets in 24 hours. Do not take with other paracetamol products.",
+    sideEffects:"Increased blood pressure (from phenylephrine), insomnia (from caffeine), nausea. Not for hypertension patients.",
+    alternatives:[{name:"Actifed compound",generic:false,price:135},{name:"Arinac (Ibuprofen combo)",generic:false,price:120},{name:"Paracetamol + decongestant (generic)",generic:true,price:45}]
   }
 ];
 
